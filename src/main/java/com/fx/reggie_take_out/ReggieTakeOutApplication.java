@@ -1,13 +1,13 @@
-package com.fx.reggir_take_out;
+package com.fx.reggie_take_out;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ReggirTakeOutApplication {
+public class ReggieTakeOutApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReggirTakeOutApplication.class, args);
+		SpringApplication.run(ReggieTakeOutApplication.class, args);
 	}
 
 }

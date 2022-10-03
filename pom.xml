@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.fx</groupId>
-	<artifactId>reggie_take_out</artifactId>
+	<artifactId>reggir_take_out</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>reggie_take_out</name>
-	<description>reggir_take_out</description>
+	<description>reggie_take_out</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>

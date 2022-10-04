@@ -20,6 +20,8 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+//    登录功能
+
     @PostMapping("/login")
     public R<Employee> login(HttpServletRequest request, @RequestBody Employee employee){
 //        将页面获取的密码进行md5加密
@@ -46,5 +48,11 @@ public class EmployeeController {
         request.getSession().setAttribute("employee",emp.getId());
 
         return R.success(emp);
+    }
+// 推出功能
+    @PostMapping("/logout")
+    public R<String> logout(HttpServletRequest request){
+        request.getSession().removeAttribute("employee");
+        return R.success("退出成功");
     }
 }

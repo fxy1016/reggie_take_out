@@ -1,12 +1,14 @@
 package com.fx.reggie_take_out.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fx.reggie_take_out.common.R;
 import com.fx.reggie_take_out.entity.Employee;
 import com.fx.reggie_take_out.service.EmployeeService;
 import com.fx.reggie_take_out.service.impl.EmployeeServiceImpl;
 import com.sun.javafx.scene.paint.GradientUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
@@ -74,5 +76,31 @@ public class EmployeeController {
 
         employeeService.save(employee);
         return R.success("新员工新增成功！");
+    }
+
+    /**
+     * 获取员工列表
+     * @param page
+     * @param pageSize
+     * @param name
+     * @return
+     */
+
+    @GetMapping("/page")
+    public R<Page> page(int page,int pageSize,String name){
+        log.info("page = {},pageSize = {},name = {}",page,pageSize,name);
+
+        //构造分页构造器
+        Page pageInfo = new Page(page, pageSize);
+//        构建条件构造器
+        LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper();
+//        添加一个过滤条件
+        queryWrapper.like(StringUtils.isNotEmpty(name),Employee::getName,name);
+//        添加排序条件
+        queryWrapper.orderByDesc(Employee::getUpdateTime);
+//        执行查询
+        employeeService.page(pageInfo,queryWrapper);
+
+        return R.success(pageInfo);
     }
 }

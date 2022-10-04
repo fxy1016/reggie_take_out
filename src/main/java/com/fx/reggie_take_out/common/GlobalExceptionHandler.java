@@ -1,7 +1,6 @@
 package com.fx.reggie_take_out.common;
 // 全局异常管理
 
-import jdk.nashorn.internal.codegen.SpillObjectCreator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -12,6 +12,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 @Slf4j
 @RestController
@@ -49,10 +50,29 @@ public class EmployeeController {
 
         return R.success(emp);
     }
-// 推出功能
+// 退出功能
     @PostMapping("/logout")
     public R<String> logout(HttpServletRequest request){
         request.getSession().removeAttribute("employee");
         return R.success("退出成功");
+    }
+
+//    新增员工
+    @PostMapping
+    public R<String> save(HttpServletRequest request,@RequestBody Employee employee){
+        log.info("新增员工，员工信息：{}",employee.toString());
+
+//        员工初始密码：123456，但需要MD5处理
+        employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
+
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+//      todo : 更新时间是不是应该放到更新请求更合理，而且大家都是管理员，那么更新人不是只能是自己了？权限不太清晰
+        Long empId = (Long) request.getSession().getAttribute("employee");
+        employee.setCreateUser(empId);
+        employee.setUpdateUser(empId);
+
+        employeeService.save(employee);
+        return R.success("新员工新增成功！");
     }
 }
